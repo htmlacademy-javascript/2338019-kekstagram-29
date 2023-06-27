@@ -10,3 +10,4 @@ const CheckPalindrome = (text) => {
 };
 
 CheckPalindrome('Лёша на полке клопа нашёл ');
+
