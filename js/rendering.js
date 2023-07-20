@@ -1,9 +1,9 @@
 import {createDataGeneration} from './data.js';
 
-const renderPictures = () => {
+const pictures = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-  const pictures = document.querySelector('.pictures');
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const renderPictures = () => {
 
   const pictureListFragment = document.createDocumentFragment();
 
@@ -18,5 +18,11 @@ const renderPictures = () => {
 
   pictures.appendChild(pictureListFragment);
 
+  return createDataGeneration;
+
 };
-renderPictures();
+
+const resRenderPictures = renderPictures();
+
+export {resRenderPictures};
+
