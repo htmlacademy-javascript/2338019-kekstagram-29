@@ -1,4 +1,4 @@
-// import {renderGallery} from './gallary.js';
+const COMMENTS_PER_PORTION = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const commentsCountElement = bigPictureElement.querySelector('.social__comment-count');
@@ -7,6 +7,9 @@ const commentsLoaderElement = bigPictureElement.querySelector('.comments-loader'
 const bodyElement = document.querySelector('body');
 const cancelButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 const commentElement = document.querySelector('.social__comment');
+
+let commentsShown = 0;
+let comments = [];
 
 const createComment = ({ avatar, name, message }) => {
   const comment = commentElement.cloneNode(true);
@@ -18,22 +21,35 @@ const createComment = ({ avatar, name, message }) => {
   return comment;
 };
 
-const renderComments = (comments) => {
-  commentListElement.innerHTML = '';
+const renderComments = () => {
+  commentsShown += COMMENTS_PER_PORTION;
+
+  if (commentsShown >= comments.length) {
+    commentsLoaderElement.classList.add('hidden');
+    commentsShown = comments.length;
+  } else {
+    commentsLoaderElement.classList.remove('hidden');
+    commentsCountElement.classList.remove('hidden');
+
+  }
 
   const fragment = document.createDocumentFragment();
-  comments.forEach((item) => {
-    const comment = createComment(item);
+  for (let i = 0; i < commentsShown; i++) {
+    const comment = createComment(comments[i]);
     fragment.append(comment);
-  });
+  }
 
+  commentListElement.innerHTML = '';
   commentListElement.append(fragment);
+  commentsCountElement.textContent = `${commentsShown} из ${comments.length} комментариев`;
+
 };
 
 const hideBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsShown = 0;
 };
 
 function onDocumentKeydown(evt) {
@@ -47,12 +63,13 @@ const onCancelButtonClick = () => {
   hideBigPicture();
 };
 
-const renderPictureDetails = ({ url, like, descriotion, comments }) => { //функция принимает объект с описанием конкретного изображения.
+const onCommentsLoaderClick = () => renderComments();
+
+const renderPictureDetails = ({ url, like, descriotion }) => { //функция принимает объект с описанием конкретного изображения.
   bigPictureElement.querySelector('.big-picture__img img').src = url;
   bigPictureElement.querySelector('.big-picture__img img').alt = descriotion;
   bigPictureElement.querySelector('.likes-count').textContent = like;
   bigPictureElement.querySelector('.social__caption').textContent = descriotion;
-  bigPictureElement.querySelector('.comments-count').textContent = comments.length;
 };
 
 const showBigPicture = (data) => {
@@ -63,9 +80,13 @@ const showBigPicture = (data) => {
   document.addEventListener('keydown', onDocumentKeydown);
 
   renderPictureDetails(data);
-  renderComments(data.comments);
+  comments = data.comments;
+  if (comments.length > 0) {
+    renderComments();
+  }
 };
 
 cancelButtonElement.addEventListener('click', onCancelButtonClick); //событие по клику - закрытие модалки.
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export {showBigPicture};
