@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="vendor/nouislider/nouislider.css" rel="stylesheet">
   <title>Кекстаграм</title>
 </head>
 
@@ -30,11 +31,11 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" autocomplete="off">
+          <form class="img-upload__form" id="upload-select-image" autocomplete="off" method="post" action="https://29.javascript.pages.academy/kekstagram" enctype="multipart/form-data">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
-              <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" required>
+              <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" value="" required>
               <label for="upload-file" class="img-upload__label  img-upload__control">Загрузить</label>
             </fieldset>
 
@@ -116,10 +117,10 @@
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
                   <div class="img-upload__field-wrapper">
-                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
+                    <input type="text" class="text__hashtags" name="hashtags" placeholder="#ХэшТег" autocomplete="off">
                   </div>
                   <div class="img-upload__field-wrapper">
-                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..." autocomplete="off" data-pristine-maxlength="140"  data-pristine-maxlength-message="Комментарий не может быть длинее 140 символов"></textarea>
                   </div>
                 </fieldset>
 
@@ -149,7 +150,7 @@
         <div class="big-picture__social  social">
           <div class="social__header">
             <img class="social__picture" src="img/avatar-1.svg" alt="Аватар автора фотографии" width="35" height="35">
-            <p class="social__caption">Тестим новую камеру! =)</p>
+            <p class="social__caption">Тестим новую камеру!</p>
             <p class="social__likes">Нравится <span class="likes-count">356</span></p>
           </div>
 
@@ -172,7 +173,7 @@
           <!-- Форма для отправки комментария -->
           <div class="social__footer">
             <img class="social__picture" src="img/avatar-6.svg" alt="Аватар комментатора фотографии" width="35" height="35">
-            <input type="text" class="social__footer-text" placeholder="Ваш комментарий...">
+            <input type="text" class="social__footer-text"  name="footer-text" placeholder="Ваш комментарий...">
             <button type="button" class="social__footer-btn" name="button">Отправить</button>
           </div>
         </div>
@@ -226,6 +227,8 @@
       </div>
     </section>
   </template>
+<script src="vendor/pristine/pristine.min.js"></script>
+<script src="vendor/nouislider/nouislider.js"></script>
 <script src="./js/main.js" type="module"></script>
 <script src="./js/function.js"></script>
 </body>
