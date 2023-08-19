@@ -153,6 +153,7 @@ noUiSlider.create(sliderElement, EFFECTS_VALUES['none'].options);
 let theme = {};
 
 for (const button of effectButtons) {
+  theme = EFFECTS_VALUES[button.value];
   button.addEventListener('change', (evt) => {
     if (evt.target.checked) {
       imgEffectsContainer.classList.remove('hidden');

@@ -1,9 +1,7 @@
-import {createDataGeneration} from './data.js';
-
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const renderPictures = () => {
+const renderPictures = (createDataGeneration) => {
 
   const pictureListFragment = document.createDocumentFragment();
 
@@ -11,7 +9,7 @@ const renderPictures = () => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = data.url;
     pictureElement.querySelector('.picture__comments').textContent = data.comments.length;
-    pictureElement.querySelector('.picture__likes').textContent = data.like;
+    pictureElement.querySelector('.picture__likes').textContent = data.likes;
     pictureElement.dataset.thumbnailId = data.id;
     pictureListFragment.appendChild(pictureElement);
   });
@@ -22,7 +20,4 @@ const renderPictures = () => {
 
 };
 
-const resRenderPictures = renderPictures();
-
-export {resRenderPictures};
-
+export {renderPictures};
