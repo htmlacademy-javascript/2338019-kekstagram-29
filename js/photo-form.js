@@ -1,7 +1,9 @@
-import { isInputFocus } from './photo-validation.js';
+import { isInputFocus, pristineForm } from './photo-validation.js';
 import { downScale, increaseScale } from './photo-scale.js';
 
+
 const uploadForm = document.querySelector('.img-upload__form');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 const imgUploadForm = uploadForm.querySelector('.img-upload__input');
 const hiddenPhotoForm = uploadForm.querySelector('.img-upload__overlay');
 const resetButton = uploadForm.querySelector('.img-upload__cancel');
@@ -14,6 +16,31 @@ const imgEffectsContainer = uploadForm.querySelector('.img-upload__effect-level'
 const uploadPreview = uploadForm.querySelector('.img-upload__preview');
 const previewImage = uploadPreview.querySelector('img');
 // const sliderElement = imgEffectsContainer.querySelector('.effect-level__slider');
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SUBMITTING: 'Отправляю...',
+};
+
+const toggleSubmitButton = (isDisabled) => {
+  submitButton.disabled = isDisabled;
+  submitButton.textContent = isDisabled
+    ? SubmitButtonText.SUBMITTING
+    : SubmitButtonText.IDLE;
+};
+
+const setOnFormSubmit = (callback) => {
+  uploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristineForm.validate();
+
+    if (isValid) {
+      toggleSubmitButton(true);
+      await callback(new FormData(uploadForm));
+      toggleSubmitButton();
+    }
+  });
+};
 
 const onClickHideForm = () => {
   uploadForm.reset();
@@ -47,3 +74,4 @@ buttonScaleControlBigger.addEventListener('click', increaseScale);
 
 imgEffectsContainer.classList.add('hidden');
 
+export {setOnFormSubmit, onClickHideForm};

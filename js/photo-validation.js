@@ -81,4 +81,4 @@ submitButton.addEventListener('submit', (evt) => {
 
 setValidator();
 
-export {isInputFocus};
+export {isInputFocus, pristineForm};

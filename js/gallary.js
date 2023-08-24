@@ -1,4 +1,3 @@
-import {resRenderPictures} from './rendering.js';
 import {showBigPicture} from './big-picture.js';
 
 const container = document.querySelector('.pictures');
@@ -21,6 +20,4 @@ const renderGallery = (pictures) => {
 
 };
 
-renderGallery(resRenderPictures);
-
-export {resRenderPictures};
+export {renderGallery};
