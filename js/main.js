@@ -1,15 +1,11 @@
-import './rendering.js';
-import './gallary.js';
-import './big-picture.js';
-import './photo-form.js';
 import './photo-slider.js';
 
-import {getData, sendData} from './api-fetch.js';
-import {renderPictures} from './rendering.js';
 import {renderGallery} from './gallary.js';
-import {showAlert} from './util.js';
+import {getData, sendData} from './api-fetch.js';
+import {showAlert, debounce} from './util.js';
 import {setOnFormSubmit, onClickHideForm} from './photo-form.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
+import {init, getFilteredPicture} from './filter.js';
 
 setOnFormSubmit(async (data) => {
   try {
@@ -23,8 +19,9 @@ setOnFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  renderPictures(data);
-  renderGallery(data);
+  const debounceRenderPictures = debounce(renderGallery);
+  init(data, debounceRenderPictures);
+  renderGallery(getFilteredPicture());
 } catch (err) {
   showAlert(err.message);
 }
