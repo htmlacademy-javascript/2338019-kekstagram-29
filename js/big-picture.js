@@ -65,10 +65,10 @@ const onCancelButtonClick = () => {
 
 const onCommentsLoaderClick = () => renderComments();
 
-const renderPictureDetails = ({ url, like, descriotion }) => { //функция принимает объект с описанием конкретного изображения.
+const renderPictureDetails = ({ url, likes, descriotion }) => { //функция принимает объект с описанием конкретного изображения.
   bigPictureElement.querySelector('.big-picture__img img').src = url;
   bigPictureElement.querySelector('.big-picture__img img').alt = descriotion;
-  bigPictureElement.querySelector('.likes-count').textContent = like;
+  bigPictureElement.querySelector('.likes-count').textContent = likes;
   bigPictureElement.querySelector('.social__caption').textContent = descriotion;
 };
 
