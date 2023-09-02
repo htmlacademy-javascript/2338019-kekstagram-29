@@ -1,10 +1,13 @@
 import { isInputFocus, pristineForm } from './photo-validation.js';
 import { downScale, increaseScale } from './photo-scale.js';
 
+const FILE_TYPE = ['jpg', 'jpeg', 'png'];
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const imgUploadForm = uploadForm.querySelector('.img-upload__input');
+const photoPreview = document.querySelector('.img-upload__preview img');
+const effectPreview = document.querySelectorAll('.effects__preview');
 const hiddenPhotoForm = uploadForm.querySelector('.img-upload__overlay');
 const resetButton = uploadForm.querySelector('.img-upload__cancel');
 
@@ -15,7 +18,13 @@ const buttonScaleControlBigger = imgUploadFieldset.querySelector('.scale__contro
 const imgEffectsContainer = uploadForm.querySelector('.img-upload__effect-level');
 const uploadPreview = uploadForm.querySelector('.img-upload__preview');
 const previewImage = uploadPreview.querySelector('img');
-// const sliderElement = imgEffectsContainer.querySelector('.effect-level__slider');
+
+
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPE.some((it) => fileName.endsWith(it));
+};
+
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -58,14 +67,25 @@ function onDocumentKeydown(evt) {
   }
 }
 
-
 const onChangeOpenForm = () => {
   hiddenPhotoForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-imgUploadForm.addEventListener('change', onChangeOpenForm);
+const onFileInputChange = () => {
+  const file = imgUploadForm.files[0];
+
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectPreview.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
+  onChangeOpenForm();
+};
+
+imgUploadForm.addEventListener('change', onFileInputChange);
 
 resetButton.addEventListener('click', onClickHideForm);
 
@@ -73,5 +93,6 @@ buttonScaleControlSmaller.addEventListener('click', downScale);
 buttonScaleControlBigger.addEventListener('click', increaseScale);
 
 imgEffectsContainer.classList.add('hidden');
+
 
 export {setOnFormSubmit, onClickHideForm};
