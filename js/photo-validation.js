@@ -1,9 +1,9 @@
 const MAX_HASHTAGS = 5;
 const VALID_HASHTAG = /^#[a-zа-яë0-9]{1,19}$/i;
-const ERROR_TEXT = {
-  invalidCount: `нельзя указать больше ${MAX_HASHTAGS} хэш-тэгов`,
-  invalidHashtag: 'не верно введен хеш-тег',
-  notUnique: 'хэш-тэги не должны повторяться',
+const ErrorText = {
+  INVALID_COUNT: `нельзя указать больше ${MAX_HASHTAGS} хэш-тэгов`,
+  INVALID_HASHTAG: 'не верно введен хеш-тег',
+  NOT_UNIQUE: 'хэш-тэги не должны повторяться',
 };
 
 // Находим элементы в разметке
@@ -52,7 +52,7 @@ const setValidator = () => {
   pristineForm.addValidator(
     tagsInput,
     validateRepeatedHastags,
-    ERROR_TEXT.notUnique,
+    ErrorText.NOT_UNIQUE,
     1,
     true
   );
@@ -60,7 +60,7 @@ const setValidator = () => {
   pristineForm.addValidator(
     tagsInput,
     validateInvalideTag,
-    ERROR_TEXT.invalidHashtag,
+    ErrorText.INVALID_HASHTAG,
     2,
     true
   );
@@ -68,7 +68,7 @@ const setValidator = () => {
   pristineForm.addValidator(
     tagsInput,
     validateNumberOfHashtags,
-    ERROR_TEXT.invalidCount,
+    ErrorText.INVALID_COUNT,
     3,
     true
   );

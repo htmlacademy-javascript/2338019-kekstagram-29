@@ -2,6 +2,8 @@ const COMMENTS_PER_PORTION = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const commentsCountElement = bigPictureElement.querySelector('.social__comment-count');
+const commentShownCount = bigPictureElement.querySelector('.comments-shown-count');
+const commentCount = bigPictureElement.querySelector('.comments-count');
 const commentListElement = bigPictureElement.querySelector('.social__comments');
 const commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
 const bodyElement = document.querySelector('body');
@@ -41,8 +43,8 @@ const renderComments = () => {
 
   commentListElement.innerHTML = '';
   commentListElement.append(fragment);
-  commentsCountElement.textContent = `${commentsShown} из ${comments.length} комментариев`;
-
+  commentShownCount.textContent = commentsShown;
+  commentCount.textContent = comments.length;
 };
 
 const hideBigPicture = () => {

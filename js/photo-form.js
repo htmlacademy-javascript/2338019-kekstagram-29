@@ -58,6 +58,7 @@ const onClickHideForm = () => {
   imgEffectsContainer.classList.add('hidden');
   hiddenPhotoForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 function onDocumentKeydown(evt) {
