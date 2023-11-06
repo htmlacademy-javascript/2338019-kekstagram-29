@@ -19,6 +19,7 @@ const imgEffectsContainer = uploadForm.querySelector('.img-upload__effect-level'
 const uploadPreview = uploadForm.querySelector('.img-upload__preview');
 const previewImage = uploadPreview.querySelector('img');
 
+export const modalCounter = { value: 0 };
 
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
@@ -58,11 +59,18 @@ const onClickHideForm = () => {
   imgEffectsContainer.classList.add('hidden');
   hiddenPhotoForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  pristineForm.reset();
+  document.removeEventListener('keydown', onDocumentKeydown);
+  modalCounter.value--; //счетчик открытия модалок
 };
 
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape' && !(isInputFocus())) {
     evt.preventDefault();
+
+    if (modalCounter.value > 1) {
+      return;
+    }
     onClickHideForm();
   }
 }
@@ -71,6 +79,7 @@ const onChangeOpenForm = () => {
   hiddenPhotoForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  modalCounter.value++; //счетчик открытия модалок
 };
 
 const onFileInputChange = () => {
