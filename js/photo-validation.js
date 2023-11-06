@@ -27,7 +27,7 @@ const isInputFocus = () => {
 };
 
 // Из наборов хэштегов сделать массив
-const hashtagsList = (tags) => tags.trim().split(' ');
+const hashtagsList = (tags) => tags.split(' ').filter((tag) => tag !== '');
 
 // Проверка есть ли хэштег в массиве
 const validateRepeatedHastags = (value) => {
@@ -72,6 +72,7 @@ const setValidator = () => {
     3,
     true
   );
+
 };
 
 submitButton.addEventListener('submit', (evt) => {

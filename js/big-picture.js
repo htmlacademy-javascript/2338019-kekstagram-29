@@ -41,7 +41,7 @@ const renderComments = () => {
 
   commentListElement.innerHTML = '';
   commentListElement.append(fragment);
-  commentsCountElement.textContent = `${commentsShown} из ${comments.length} комментариев`;
+  commentsCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 
 };
 
@@ -65,11 +65,11 @@ const onCancelButtonClick = () => {
 
 const onCommentsLoaderClick = () => renderComments();
 
-const renderPictureDetails = ({ url, likes, descriotion }) => { //функция принимает объект с описанием конкретного изображения.
+const renderPictureDetails = ({ url, likes, description }) => { //функция принимает объект с описанием конкретного изображения.
   bigPictureElement.querySelector('.big-picture__img img').src = url;
-  bigPictureElement.querySelector('.big-picture__img img').alt = descriotion;
+  bigPictureElement.querySelector('.big-picture__img img').alt = description;
   bigPictureElement.querySelector('.likes-count').textContent = likes;
-  bigPictureElement.querySelector('.social__caption').textContent = descriotion;
+  bigPictureElement.querySelector('.social__caption').textContent = description;
 };
 
 const showBigPicture = (data) => {
