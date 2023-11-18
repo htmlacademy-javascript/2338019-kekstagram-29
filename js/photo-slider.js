@@ -136,6 +136,8 @@ const EFFECTS_VALUES = {
   }
 };
 
+const  TYPE_VALUE = 'none';
+
 // Превью картинка
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadPreview = uploadForm.querySelector('.img-upload__preview');
@@ -162,7 +164,7 @@ for (const button of effectButtons) {
       previewImage.style.filter = `${theme.filter}(${theme.options.start}${theme.options.suffix})`;
       sliderElement.noUiSlider.updateOptions(theme.options);
     }
-    if (evt.target.value === 'none') {
+    if (evt.target.value === TYPE_VALUE) {
       imgEffectsContainer.classList.add('hidden');
       sliderElement.setAttribute('disabled', true);
       previewImage.style.filter = '';
