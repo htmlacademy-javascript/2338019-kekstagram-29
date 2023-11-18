@@ -32,8 +32,8 @@ const hashtagsList = (tags) => tags.split(' ').filter((tag) => tag !== '');
 // Проверка есть ли хэштег в массиве
 const validateRepeatedHastags = (value) => {
   const newArray = hashtagsList(value.toLowerCase());
-  const uniqAray = [...new Set(newArray)];
-  return newArray.toString() === uniqAray.toString();
+  const uniqueArray = [...new Set(newArray)];
+  return newArray.toString() === uniqueArray.toString();
 };
 
 // Проверка размера массива

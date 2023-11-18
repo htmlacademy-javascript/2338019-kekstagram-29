@@ -1,7 +1,12 @@
 import { isInputFocus, pristineForm } from './photo-validation.js';
 import { downScale, increaseScale } from './photo-scale.js';
 
-const FILE_TYPE = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SUBMITTING: 'Отправляю...',
+};
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
@@ -23,13 +28,7 @@ export const modalCounter = { value: 0 };
 
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
-  return FILE_TYPE.some((it) => fileName.endsWith(it));
-};
-
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SUBMITTING: 'Отправляю...',
+  return FILE_TYPES.some((item) => fileName.endsWith(item));
 };
 
 const toggleSubmitButton = (isDisabled) => {
