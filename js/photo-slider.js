@@ -136,7 +136,7 @@ const EFFECTS_VALUES = {
   }
 };
 
-const  TYPE_VALUE = 'none';
+const TYPE_VALUE = 'none';
 
 // Превью картинка
 const uploadForm = document.querySelector('.img-upload__form');
